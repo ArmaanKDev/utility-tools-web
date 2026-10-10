@@ -1,0 +1,108 @@
+.dashboard-flex {
+    display: flex;
+    gap: 12px;
+    padding: 16px 14px 10px;
+    background: var(--bg-page);
+    align-items: stretch;
+    flex: 1;
+    min-height: 0;
+}
+
+.dashboard-home-box {
+    width: 190px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-home-scroll {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.dashboard-home-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.dashboard-home-scroll > * {
+    flex-shrink: 0;
+}
+
+.dashboard-home-scroll > .action-file-list {
+    flex: 0 0 130px;
+}
+
+.dashboard-home-scroll > .action-file-spacer {
+    flex: 0 1 130px;
+    min-height: 0;
+}
+
+.dashboard-home-box .range-text {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.dashboard-home-box .btn {
+    padding-block: 7px;
+    margin-bottom: 0;
+}
+
+.dashboard-home-box .btn-secondary {
+    margin-top: 0;
+}
+
+.dashboard-home-footer {
+    flex-shrink: 0;
+    padding-top: 4px;
+}
+
+.dashboard-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-charts-box {
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-chart-area {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+    padding-bottom: 14px;
+}
+
+.dashboard-chart-area .window-nav-row {
+    flex-shrink: 0;
+    margin-top: 8px;
+}
+
+
+/* FilterPane docks visually left or right via flex order - it's the
+   LAST element in markup (always renders after dashboard-main), but
+   order:-1 pulls it before dashboard-main visually when docked left.
+   The pane's OWN internal position state (in FilterPane.jsx) decides
+   which CSS class applies here. */
+.filter-pane-right {
+    order: 1;
+}
+
+.filter-pane-left {
+    order: -1;
+}

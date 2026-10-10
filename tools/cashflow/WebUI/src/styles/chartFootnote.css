@@ -1,0 +1,26 @@
+.chart-footnote {
+    margin-top: -6px;
+    margin-right: 12px;
+    padding: 8px 16px;
+    background: #abb8c3;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.1;
+    color: #374A2F;
+    flex-shrink: 0;
+}
+
+
+.chart-footnote :first-child{
+    font-weight: bold;
+}
+
+.chart-footnote :nth-child(4){
+    font-weight: bold;
+    color: #520912;
+} 
+/* targeting the speicfic p elements that are mapped over inside the container */
+.chart-footnote p {
+    margin: 0;
+}

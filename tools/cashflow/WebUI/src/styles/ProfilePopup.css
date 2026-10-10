@@ -1,0 +1,151 @@
+.profile-popup {
+    position: fixed;
+    top: 56px;
+    right: 12px;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px 10px;
+    min-width: 220px;
+    max-width: 280px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    z-index: 1001;
+}
+
+.profile-popup-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.profile-popup-email {
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 2px;
+}
+
+.profile-popup-email.no-email {
+    font-style: italic;
+}
+
+.profile-email-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.profile-email-badge.verified {
+    background: rgba(61, 139, 95, 0.15);
+    color: #3D8B5F;
+}
+
+.profile-email-badge.unverified {
+    background: rgba(220, 150, 0, 0.15);
+    color: #b87800;
+}
+
+.profile-popup-pending {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: 2px;
+}
+
+.profile-popup-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 10px 0 8px;
+}
+
+.profile-popup-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 7px 4px;
+    font-size: 13px;
+    color: var(--text-primary);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s;
+}
+
+.profile-popup-btn:hover {
+    background: var(--hover-bg, rgba(0,0,0,0.05));
+}
+
+.profile-popup-logout {
+    color: var(--danger, #c0392b);
+}
+
+.profile-popup-admin {
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.profile-billing-section {
+    margin: 0 0 4px;
+}
+
+.profile-billing-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 4px 2px;
+}
+
+.profile-tier-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.02em;
+}
+
+.profile-tier-badge.tier-pro {
+    background: rgba(79, 142, 247, 0.15);
+    color: #4f8ef7;
+}
+
+.profile-tier-badge.tier-proplus {
+    background: rgba(124, 79, 247, 0.15);
+    color: #7c4ff7;
+}
+
+.profile-tier-badge.tier-business {
+    background: rgba(247, 147, 79, 0.15);
+    color: #f7932f;
+}
+
+.profile-tier-badge.tier-enterprise {
+    background: rgba(220, 38, 38, 0.12);
+    color: #dc2626;
+}
+
+.profile-tier-badge.tier-base {
+    background: var(--hover-bg, rgba(0,0,0,0.06));
+    color: var(--text-secondary);
+}
+
+.profile-trial-days {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.profile-upgrade-btn {
+    color: #4f8ef7;
+    font-weight: 500;
+    text-decoration: none;
+    display: block;
+}

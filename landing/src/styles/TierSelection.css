@@ -1,0 +1,153 @@
+.ts-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 16px 64px;
+    background: var(--bg);
+    color: var(--fg);
+}
+
+.ts-header {
+    text-align: center;
+    max-width: 520px;
+    margin-bottom: 40px;
+}
+
+.ts-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+}
+
+.ts-sub {
+    color: var(--fg-muted, #888);
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.ts-error {
+    background: #fee2e2;
+    color: #b91c1c;
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+}
+
+.ts-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.ts-card {
+    background: var(--card-bg, #fff);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow 0.15s;
+}
+
+.ts-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.ts-card--featured {
+    border-color: #4f8ef7;
+    box-shadow: 0 0 0 2px #4f8ef720;
+}
+
+.ts-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ts-tier-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.ts-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.ts-amount {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #4f8ef7;
+}
+
+.ts-period {
+    font-size: 0.85rem;
+    color: var(--fg-muted, #888);
+}
+
+.ts-desc {
+    font-size: 0.875rem;
+    color: var(--fg-muted, #888);
+    line-height: 1.5;
+    flex: 1;
+    margin: 0;
+}
+
+.ts-btn {
+    width: 100%;
+    padding: 10px 16px;
+    background: #4f8ef7;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, opacity 0.15s;
+}
+
+.ts-btn:hover:not(:disabled) {
+    background: #3a78e0;
+}
+
+.ts-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.ts-note {
+    margin-top: 32px;
+    font-size: 0.875rem;
+    color: var(--fg-muted, #888);
+}
+
+.ts-link {
+    background: none;
+    border: none;
+    color: #4f8ef7;
+    cursor: pointer;
+    font-size: inherit;
+    text-decoration: underline;
+    padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .ts-card {
+        background: #1a1a2e;
+        border-color: #2d2d4e;
+    }
+    :root:not([data-theme="light"]) .ts-error {
+        background: #3b1515;
+        color: #f87171;
+    }
+}

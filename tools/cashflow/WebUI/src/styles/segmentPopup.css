@@ -1,0 +1,107 @@
+.segment-popup-content {
+    text-align: center;
+}
+.segment-popup-content p {
+    margin: 0px;
+}
+.segment-popup-period {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+
+.segment-popup-category {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.segment-popup-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.segment-popup-fixed {
+    margin-top: 8px;
+    padding: 10px 16px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.segment-popup-floating {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background: var(--bg-page);
+    border: 1px solid var(--border-medium);
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    white-space: normal;
+    word-break: break-word;
+    max-width: min(260px, calc(100vw - 32px));
+    z-index: 5;
+    margin-top: -8px;
+}
+
+/* NEW - flipped state: renders BELOW the cursor point instead of
+   above, since translate/margin need to go the opposite direction. */
+.segment-popup-floating-below {
+    transform: translate(-50%, 0%);
+    margin-top: 8px;
+}
+
+.segment-popup-floating-arrow {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--bg-page);
+}
+
+/* NEW - upward-pointing arrow for the flipped state, sits at the TOP
+   of the bubble instead of the bottom. */
+.segment-popup-floating-arrow-up {
+    position: absolute;
+    top: -5px;
+    bottom: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: none;
+    border-bottom: 5px solid var(--bg-page);
+}
+
+.segment-popup-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* back to none - dismiss now happens via the chart's own background-catcher underneath, not this backdrop */
+}
+
+.segment-popup-modal {
+    background: var(--bg-page);
+    border: 1px solid var(--border-medium);
+    border-radius: 10px;
+    padding: 16px 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    pointer-events: auto;
+    max-height: 70%;      /* NEW - caps how tall it can grow */
+    margin-bottom: 40px;  /* NEW - nudges it up from dead-center, leaving room below */
+}

@@ -1,0 +1,203 @@
+.charts-container { height: 100%; background: var(--bg-page); overflow-y: auto; overflow-x: clip; }
+.charts-body { display: flex; overflow-x: clip; }
+.charts-scroll-content { flex: 1; padding: 20px; padding-bottom: 40px; min-width: 0; overflow-x: clip; }
+.charts-title { font-size: 24px; font-weight: bold; margin-top: 24px; margin-bottom: 8px; }
+
+/* Sidebar: hidden on desktop (filter renders inline in scroll content via charts-filter-wrap),
+   visible as narrow sidebar on mobile (≤700px). */
+.charts-sidebar { display: none; }
+
+/* On mobile: sidebar appears and the whole page scrolls as one unit */
+@media (max-width: 1023px) {
+
+    .charts-container { height: auto; min-height: 100%; overflow-y: visible; }
+    .charts-body { align-items: flex-start; }
+
+    .charts-sidebar {
+        display: block;
+        width: 115px;
+        flex-shrink: 0;
+        border-right: 1px solid var(--border);
+        background: var(--bg-subtle);
+        overflow: hidden;
+        position: sticky;
+        top: 48px; /* below the 48px app-header */
+        max-height: calc(100vh - 89px);
+        align-self: flex-start;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .charts-sidebar::-webkit-scrollbar { display: none; }
+
+    /* Override FilterPane defaults so it sits flat inside the sidebar
+       with no internal scroll, no sticky, no fixed width/height */
+    .charts-sidebar .filter-pane {
+        width: 100%;
+        max-height: none;
+        overflow: visible;
+        position: static;
+        top: auto;
+        padding: 6px 0 6px 1px;
+        border-radius: 0;
+        border: none;
+        gap: 2px;
+    }
+    .charts-sidebar .filter-pane-scroll-list {
+        max-height: none;
+        overflow: visible;
+    }
+    .charts-sidebar .filter-pane-section {
+        margin-bottom: 6px;
+        padding-bottom: 6px;
+    }
+    .charts-sidebar .filter-pane-header {
+        margin-bottom: 4px;
+        padding-bottom: 4px;
+    }
+    .charts-sidebar .filter-pane-title { font-size: 11px; }
+    .charts-sidebar .filter-pane-section-title { font-size: 10px; margin-bottom: 3px; }
+    /* Align All + category rows flush left; clamp text so drag handle always fits */
+    .charts-sidebar .filter-pane-checkbox-row { font-size: 10px; gap: 3px; padding: 2px 0; }
+    /* Remove the transparent border that shifts category checkboxes right vs "All" */
+    .charts-sidebar .filter-pane-combined-row { gap: 0; border-left-width: 0; border-right-width: 0; border-bottom-width: 0; }
+    .charts-sidebar .filter-pane-combined-label { gap: 3px; min-width: 0; flex: 1; }
+    .charts-sidebar .filter-pane-combined-label span:last-child { overflow: hidden; text-overflow: ellipsis; min-width: 0; white-space: nowrap; }
+    .charts-sidebar .filter-pane-colour-dot { width: 6px; height: 6px; margin-right: 1px; }
+
+    /* Strip non-essential elements to save space */
+    .charts-sidebar .filter-pane-hint { display: none; }
+    .charts-sidebar .filter-pane-persist-row { display: none; }
+    .charts-sidebar .filter-pane-reset-btn { display: none; }
+    /* Keep drag handle — hold-to-drag works on mobile */
+    .charts-sidebar .filter-pane-drag-handle { font-size: 11px; padding: 0; }
+}
+.charts-button { background: var(--primary); padding: 12px 24px; border-radius: 8px; margin-bottom: 24px; color: var(--bg-page); font-size: 16px; font-weight: 600; border: none; cursor: pointer; width: 100%; text-align: center;margin-top: 24px; }
+
+.colour-chip { display: flex; align-items: center; border: 1.5px solid; border-radius: 16px; padding: 4px 10px; margin-right: 6px; margin-bottom: 6px; }
+.colour-dot { width: 10px; height: 10px; border-radius: 5px; margin-right: 6px; }
+
+.dropdown-toggle { background: var(--primary); border-radius: 8px; padding: 10px 14px; margin: 4px 0 8px; text-align: center; color: var(--bg-page); font-size: 13px; font-weight: 600; border: none; cursor: pointer; width: 100%; }
+.dropdown-toggle:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.swatch-grid { display: flex; flex-wrap: wrap; margin-bottom: 16px; padding: 8px; background: var(--bg-header-row); border-radius: 8px; }
+.swatch { width: 40px; height: 40px; border-radius: 20px; margin: 6px; border: 1px solid rgba(0,0,0,0.1); cursor: pointer; }
+
+.empty-text { font-size: 14px; color: var(--text-muted); text-align: center; margin: 24px 0; }
+.banner { background: var(--bg-warning); padding: 8px; border-radius: 6px; margin-bottom: 8px; }
+.banner-text { color: var(--warning-text); font-size: 13px; text-align: center; }
+
+.slicer-label { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-top: 16px; margin-bottom: 6px; }
+.chip-row { display: flex; overflow-x: auto; margin-bottom: 8px; }
+.chip-wrap { display: flex; flex-wrap: wrap; margin-bottom: 8px; }
+.chip { border: 1px solid var(--primary); border-radius: 16px; padding: 4px 12px; margin-right: 6px; margin-bottom: 6px; background: none; cursor: pointer; }
+.chip-active { background: var(--primary); }
+.chip-text { font-size: 12px; color: var(--primary); }
+.chip-text-active { color: var(--bg-page); }
+
+.section-label { font-size: 20px;font-weight: bold; color: var(--text-secondary); margin: 0 0 4px; }
+.tapped-value-text { font-size: 16px; font-weight: 600; margin-top: 8px; margin-bottom: 16px; }
+
+/* Range slider - styled to resemble the RN Slider's blue-filled track */
+.zoom-slider { width: 100%; height: 32px; accent-color: var(--primary); cursor: pointer; }
+.zoom-row { display: flex; align-items: center; margin-bottom: 4px; gap: 8px; }
+.zoom-row .section-label { margin-bottom: 0; white-space: nowrap; }
+
+/* Stack order editor */
+.stack-order-container { margin: 8px 0; border: 1px solid var(--border-medium); border-radius: 8px; overflow: hidden; }
+.stack-order-toggle { width: 100%; padding: 12px; background: var(--bg-muted); border: none; cursor: pointer; text-align: left; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.stack-order-hint { font-size: 11px; color: var(--text-muted); padding: 8px 12px 4px; }
+.stack-order-row { display: flex; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--border); background: var(--bg-page); }
+.stack-order-label { flex: 1; font-size: 13px; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.stack-order-buttons { display: flex; gap: 4px; }
+.stack-order-btn { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--primary); background: var(--bg-page); color: var(--primary); font-size: 16px; cursor: pointer; }
+.stack-order-btn:disabled { border-color: var(--border-medium); color: var(--border-strong); cursor: not-allowed; }
+.stack-order-controls { padding: 12px; border-top: 1px solid var(--border); background: var(--bg-subtle); }
+.stack-order-persist-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.stack-order-persist-label { font-size: 13px; color: var(--text-primary); }
+.stack-order-reset { width: 100%; padding: 8px; text-align: center; border: 1px solid var(--danger); border-radius: 6px; background: none; color: var(--danger); font-size: 13px; font-weight: 600; cursor: pointer; }
+
+.chip-colour-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 4px;
+}
+
+
+.chart-window-toggle {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+.chart-header-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+}
+
+
+.toggle-btn {
+    padding: 6px 14px;
+    border: 1px solid var(--primary);
+    background: var(--bg-page);
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.toggle-btn-active {
+    background: var(--primary);
+    color: var(--bg-page);
+}
+
+.window-scroll-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+}
+
+/* NEW - arrows below the chart, spread to its left/right edges rather
+   than fused into one center pill, so the spatial "left = scroll
+   left" logic from the old side-arrow layout is mostly preserved. */
+.window-nav-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.window-nav-btn {
+    background: var(--primary);
+    color: var(--bg-page);
+    border: none;
+    border-radius: 6px;
+    width: 36px;
+    height: 32px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* OLD - kept here, unused, as a reference/fallback in case you want
+   to revert to the side-by-side arrow layout later. Renamed so it
+   doesn't accidentally collide with anything. */
+.window-scroll-btn--unused-old-version {
+    background: var(--primary);
+    color: var(--bg-page);
+    border: none;
+    border-radius: 6px;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
+}

@@ -1,0 +1,41 @@
+.stack-chart-scroll { overflow-y: visible; min-width: 0; flex: 1; }
+.stack-chart-hscroll { overflow-x: hidden; overflow-y: hidden; }
+
+.stack-segment { border: none; cursor: pointer; padding: 0; transition: opacity 0.1s; }
+.stack-segment:hover, .stack-segment:active { opacity: 0.6; }
+
+.y-axis-label { font-size: 11px; color: var(--text-primary); text-align: right; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-label { font-size: 10px; color: var(--text-primary); text-align: center; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.grid-line { position: absolute; left: 0; height: 1px; background: var(--border); }
+.x-axis-line { position: absolute; left: 0; height: 1px; background: var(--border-strong); }
+
+.income-legend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    padding-left: 4px;
+}
+
+.income-legend-line {
+    display: inline-block;
+    width: 16px;
+    height: 2px;
+    background: var(--success-bright);
+}
+
+.income-legend-text {
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+.bar-total-label {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: visible;
+}

@@ -1,0 +1,744 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   BILLING — PricingScreen, CardSetupScreen, ToolGate, trial banners
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Pricing page ─────────────────────────────────────────────────────────── */
+
+.pricing-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+}
+
+.pricing-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.pricing-header h1 {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0 0 8px;
+}
+
+.pricing-subtitle {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    margin: 0;
+}
+
+.pricing-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.pricing-cards-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 900px) {
+    .pricing-cards-4 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+    .pricing-cards { grid-template-columns: 1fr; }
+    .pricing-cards-4 { grid-template-columns: 1fr; }
+}
+
+.pricing-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative;
+}
+
+.pricing-card-featured {
+    background: var(--bg-page);
+    border-color: var(--primary);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+.pricing-card-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: #fff;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 99px;
+    white-space: nowrap;
+}
+
+.pricing-card-header {
+    margin-bottom: 20px;
+}
+
+.pricing-tier-name {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 8px;
+}
+
+.pricing-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+.pricing-amount {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+}
+
+.pricing-period {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.pricing-yearly-hint {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+}
+
+.pricing-features {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pricing-feature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+}
+
+.pricing-feature::before {
+    content: '✓';
+    color: var(--primary);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+}
+
+.pricing-feature-muted {
+    color: var(--text-secondary);
+}
+
+.pricing-feature-muted::before {
+    content: '—';
+    color: var(--text-secondary);
+}
+
+.pricing-cta {
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pricing-trial-btn {
+    width: 100%;
+}
+
+.pricing-current-plan {
+    font-size: var(--font-size-sm);
+    color: var(--primary);
+    font-weight: var(--font-weight-medium);
+    text-align: center;
+    display: block;
+}
+
+.pricing-cta-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    text-align: center;
+    display: block;
+}
+
+.pricing-card-hint {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    text-align: center;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.pricing-error {
+    font-size: var(--font-size-xs);
+    color: var(--danger);
+    margin: 0;
+}
+
+.pricing-trial-success {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: color-mix(in srgb, var(--success, #22c55e) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--success, #22c55e) 40%, transparent);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    font-size: var(--font-size-sm);
+    flex-wrap: wrap;
+}
+
+.pricing-go-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.pricing-stripe-notice {
+    text-align: center;
+    margin-top: 32px;
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+}
+
+/* ── Card setup ───────────────────────────────────────────────────────────── */
+
+.card-setup-page {
+    max-width: 480px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.card-setup-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 36px 32px;
+}
+
+.card-setup-disabled {
+    text-align: center;
+}
+
+.card-setup-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+}
+
+.card-setup-card h2 {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0 0 8px;
+}
+
+.card-setup-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin: 0 0 28px;
+    line-height: 1.5;
+}
+
+.card-setup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card-setup-field-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 6px;
+}
+
+.card-setup-stripe-field {
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 14px 16px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.15s;
+}
+
+.card-setup-stripe-field:focus-within {
+    border-color: var(--primary);
+}
+
+.card-setup-stripe-field--loading {
+    opacity: 0.6;
+}
+
+.card-setup-placeholder {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* The Stripe iframe fills its container */
+.card-setup-stripe-field .StripeElement {
+    width: 100%;
+}
+
+.card-setup-error {
+    font-size: var(--font-size-sm);
+    color: var(--danger);
+    margin: 0;
+}
+
+.card-setup-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-setup-submit {
+    width: 100%;
+}
+
+.card-setup-stripe-badge {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    text-align: center;
+    margin: 0;
+}
+
+/* ── Tool gate (shown when user has base tier and tries to access a tool) ──── */
+
+.tool-gate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    text-align: center;
+    gap: 16px;
+}
+
+.tool-gate-icon {
+    font-size: 48px;
+    line-height: 1;
+}
+
+.tool-gate h2 {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-h4);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.tool-gate p {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 320px;
+    line-height: 1.5;
+}
+
+.tool-gate-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+/* ── Trial banner (shown at top of tool screens during active trial) ────────── */
+
+.trial-banner {
+    background: var(--primary-light);
+    border-bottom: 1px solid var(--primary-muted);
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: var(--font-size-xs);
+    color: var(--primary);
+    flex-wrap: wrap;
+}
+
+.trial-banner strong {
+    font-weight: var(--font-weight-bold);
+}
+
+.trial-banner-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ── Payment failed banner ───────────────────────────────────────────────────── */
+
+.payment-failed-banner {
+    background: var(--bg-warning);
+    border-bottom: 1px solid var(--warning-border);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+    flex-wrap: wrap;
+}
+
+.payment-failed-banner strong {
+    color: var(--danger);
+}
+
+/* ── Base-tier upload locked state ──────────────────────────────────────────── */
+
+.upload-locked-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.upload-locked-hint {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0;
+    text-align: center;
+}
+
+.upload-locked-upgrade {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 12px;
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.upload-locked-upgrade:hover {
+    color: var(--accent-hover, var(--accent));
+}
+
+/* ── Pricing skip-trial link ─────────────────────────────────────────────────── */
+
+.pricing-skip-trial {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 8px 0 0;
+    text-align: center;
+}
+
+.pricing-skip-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 12px;
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.pricing-skip-link:hover {
+    color: var(--accent-hover, var(--accent));
+}
+
+.pricing-skip-link:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ── Pricing pending payment notice ─────────────────────────────────────────── */
+
+.pricing-pending-notice {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 6px 0 0;
+    text-align: center;
+}
+
+.pricing-trial-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.pricing-skip-link:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+/* ── Dimmed cap button (same colour as .btn, brightness reduced) ─────────────── */
+
+.btn-cap-dimmed {
+    /* Inherit the same base button styles via .btn cascade; just dim it */
+    filter: brightness(0.65);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ── Base-tier session-only banner + countdown ──────────────────────────────── */
+
+.base-cap-banner {
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 7px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.base-cap-banner-text {
+    flex: 1;
+    line-height: 1.5;
+}
+
+.base-cap-banner-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.base-cap-banner-link:hover {
+    color: var(--accent-hover, var(--accent));
+}
+
+.base-cap-countdown {
+    white-space: nowrap;
+    font-size: 12px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.base-cap-countdown strong {
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+
+/* ── Dashboard compact session note ─────────────────────────────────────────── */
+
+.dashboard-session-note {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.dashboard-session-note strong {
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Upload status popup (fixed overlay) ─────────────────────────────────────── */
+
+.upload-status-popup {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 260px;
+    max-height: 320px;
+    overflow-y: auto;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 12px 14px;
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.upload-status-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.upload-status-popup-title {
+    font-size: 13px;
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary);
+}
+
+.upload-status-close {
+    background: none;
+    border: none;
+    padding: 0 2px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.upload-status-close:hover {
+    color: var(--text-primary);
+}
+
+.upload-status-files {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.upload-status-file-name {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.upload-status-error {
+    font-size: 12px;
+    color: var(--danger);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ── Inline action file list (shown above Automatically categorise) ──────────── */
+
+.action-file-list {
+    background: var(--bg-header-row);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+    min-height: 0;
+}
+
+.action-file-list::-webkit-scrollbar {
+    display: none;
+}
+
+.action-file-name {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0;
+    padding: 3px 0;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+}
+
+.action-file-name:last-child {
+    border-bottom: none;
+}
+
+.action-file-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 4px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.action-file-list-count {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.action-file-dismiss {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0 2px;
+    line-height: 1;
+}
+
+.action-file-dismiss:hover {
+    color: var(--text-primary);
+}
+
+.action-error-wrap {
+    background: var(--bg-header-row);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.action-error {
+    font-size: 12px;
+    color: var(--danger);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.action-error-dismiss {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 11px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: left;
+    text-decoration: underline;
+}
+
+.action-error-dismiss:hover {
+    color: var(--text-primary);
+}
+
+/* ── Logout wipe warning modal option colours ────────────────────────────────── */
+
+.logout-warn-upgrade .modal-option-text {
+    color: var(--primary);
+    font-weight: var(--font-weight-medium);
+}
+
+.logout-warn-cancel .modal-option-text {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}

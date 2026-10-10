@@ -1,0 +1,194 @@
+import { useEffect, useRef, useState } from 'react';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { getMe, logout, postGeoHeartbeat } from './api.js';
+import Sidebar from './components/Sidebar.jsx';
+import StartupScreen from './components/StartupScreen.jsx';
+import LoginScreen from './screens/Auth/LoginScreen.jsx';
+import SignupScreen from './screens/Auth/SignupScreen.jsx';
+import ForgotPasswordScreen from './screens/Auth/ForgotPasswordScreen.jsx';
+import UsersScreen from './screens/General/UsersScreen.jsx';
+import RolesScreen from './screens/General/RolesScreen.jsx';
+import AdminAccountsScreen from './screens/General/AdminAccountsScreen.jsx';
+import UserAccountsScreen from './screens/General/UserAccountsScreen.jsx';
+import UnlockScreen from './screens/General/UnlockScreen.jsx';
+import ImpersonationLogScreen from './screens/General/ImpersonationLogScreen.jsx';
+import AuditLogScreen from './screens/General/AuditLogScreen.jsx';
+import GeoLogsScreen from './screens/General/GeoLogsScreen.jsx';
+import ClientEventsScreen from './screens/General/ClientEventsScreen.jsx';
+import CategoriesScreen from './screens/Cashflow/CategoriesScreen.jsx';
+import UserTransactionsScreen from './screens/Cashflow/UserTransactionsScreen.jsx';
+import BillingSettingsScreen from './screens/Billing/BillingSettingsScreen.jsx';
+import CardExemptScreen from './screens/Billing/CardExemptScreen.jsx';
+import IpManagementScreen from './screens/Billing/IpManagementScreen.jsx';
+
+const IDLE_TIMEOUT_MS   = 30 * 60 * 1000; // 30 minutes
+const GEO_HEARTBEAT_MS  = 10 * 60 * 1000; // 10 minutes
+
+// auth states: 'loading' | 'login' | 'signup' | 'forgot' | 'denied' | 'ok'
+
+function AdminApp({ user, onLogout, onGeoBlock }) {
+    const caller = { id: user?.id, role: user?.role, level: user?.level ?? 0 };
+
+    // Geo heartbeat every 10 minutes
+    useEffect(() => {
+        let lastHeartbeatAt = 0;
+
+        async function runHeartbeat() {
+            // Deduplicate: if a token refresh just ran recently (within 30s) skip
+            const now = Date.now();
+            if (now - lastHeartbeatAt < 30_000) return;
+            lastHeartbeatAt = now;
+            try {
+                const result = await postGeoHeartbeat();
+                if (result?.geo_blocked) {
+                    onGeoBlock(result.message);
+                }
+            } catch {
+                // network error — ignore, will retry next interval
+            }
+        }
+
+        // Run once after 30s then every 10 min
+        const initial = setTimeout(runHeartbeat, 30_000);
+        const interval = setInterval(runHeartbeat, GEO_HEARTBEAT_MS);
+
+        // Page-focus handler — run on tab becoming visible after being hidden
+        function onVisibilityChange() {
+            if (!document.hidden) runHeartbeat();
+        }
+        document.addEventListener('visibilitychange', onVisibilityChange);
+
+        return () => {
+            clearTimeout(initial);
+            clearInterval(interval);
+            document.removeEventListener('visibilitychange', onVisibilityChange);
+        };
+    }, [onGeoBlock]);
+
+    return (
+        <div className="admin-layout">
+            <Sidebar user={user} onLogout={onLogout} />
+            <main className="admin-main">
+                <Routes>
+                    <Route path="/" element={<Navigate to="/general/users" replace />} />
+                    <Route path="/general/users" element={<UsersScreen caller={caller} />} />
+                    <Route path="/general/roles" element={<RolesScreen caller={caller} />} />
+                    <Route path="/general/admin-accounts" element={<AdminAccountsScreen caller={caller} />} />
+                    <Route path="/general/user-accounts" element={<UserAccountsScreen caller={caller} />} />
+                    <Route path="/general/unlock" element={<UnlockScreen />} />
+                    <Route path="/general/impersonation-log" element={<ImpersonationLogScreen />} />
+                    <Route path="/general/audit-log" element={<AuditLogScreen />} />
+                    <Route path="/general/geo-logs" element={<GeoLogsScreen caller={caller} />} />
+                    <Route path="/general/failed-calls" element={<ClientEventsScreen />} />
+                    <Route path="/cashflow/categories" element={<CategoriesScreen />} />
+                    <Route path="/cashflow/user-transactions" element={<UserTransactionsScreen caller={caller} />} />
+                    <Route path="/billing/settings" element={<BillingSettingsScreen />} />
+                    <Route path="/billing/card-exempt" element={<CardExemptScreen caller={caller} />} />
+                    <Route path="/billing/ip-management" element={<IpManagementScreen />} />
+                    <Route path="*" element={<Navigate to="/general/users" replace />} />
+                </Routes>
+            </main>
+        </div>
+    );
+}
+
+function hasAdminAccess(data) {
+    return data.role === 'owner' || (data.permissions || []).includes('admin.panel.view');
+}
+
+export default function App() {
+    const [authState, setAuthState] = useState('loading');
+    const [user, setUser] = useState(null);
+    const [geoBlockMessage, setGeoBlockMessage] = useState('');
+    const idleTimerRef = useRef(null);
+
+    function resetIdleTimer() {
+        clearTimeout(idleTimerRef.current);
+        idleTimerRef.current = setTimeout(async () => {
+            await logout();
+            setUser(null);
+            setAuthState('login');
+        }, IDLE_TIMEOUT_MS);
+    }
+
+    useEffect(() => {
+        getMe()
+            .then(data => {
+                if (hasAdminAccess(data)) {
+                    setUser(data);
+                    setAuthState('ok');
+                } else {
+                    setUser(data);
+                    setAuthState('denied');
+                }
+            })
+            .catch(() => setAuthState('login'));
+    }, []);
+
+    // Wire idle timeout while logged in
+    useEffect(() => {
+        if (authState !== 'ok') return;
+        const events = ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'];
+        events.forEach(e => window.addEventListener(e, resetIdleTimer));
+        resetIdleTimer();
+        return () => {
+            events.forEach(e => window.removeEventListener(e, resetIdleTimer));
+            clearTimeout(idleTimerRef.current);
+        };
+    }, [authState]);
+
+    function handleLoginSuccess(data) {
+        setUser(data);
+        setAuthState(hasAdminAccess(data) ? 'ok' : 'denied');
+    }
+
+    async function handleLogout() {
+        await logout();
+        setUser(null);
+        setAuthState('login');
+    }
+
+    async function handleGeoBlock(message) {
+        setGeoBlockMessage(message || 'Suspicious activity detected — you have been logged out.');
+        await logout();
+        setUser(null);
+        setAuthState('login');
+    }
+
+    if (authState === 'loading') return <StartupScreen />;
+
+    if (authState === 'login') {
+        return (
+            <LoginScreen
+                onLogin={(data) => { setGeoBlockMessage(''); handleLoginSuccess(data); }}
+                onGoSignup={() => setAuthState('signup')}
+                geoBlockMessage={geoBlockMessage}
+            />
+        );
+    }
+
+    if (authState === 'signup') {
+        return <SignupScreen onGoLogin={() => setAuthState('login')} />;
+    }
+
+    if (authState === 'forgot') {
+        return <ForgotPasswordScreen onGoLogin={() => setAuthState('login')} />;
+    }
+
+    if (authState === 'denied') {
+        return (
+            <div className="admin-denied">
+                <h2>Access denied</h2>
+                <p>Your account doesn't have admin panel access.</p>
+                <p style={{ fontSize: 13, marginTop: 4 }}>Logged in as: <strong>{user?.username || '—'}</strong></p>
+                <button className="btn btn-ghost" style={{ marginTop: 16 }} onClick={handleLogout}>Sign out</button>
+            </div>
+        );
+    }
+
+    return (
+        <HashRouter>
+            <AdminApp user={user} onLogout={handleLogout} onGeoBlock={handleGeoBlock} />
+        </HashRouter>
+    );
+}

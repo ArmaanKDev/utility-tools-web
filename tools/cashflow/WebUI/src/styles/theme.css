@@ -1,0 +1,8 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   THEME ENTRY POINT
+   To change typography / type scale: edit themes/_base.css
+   To switch colour palette:          edit themes/active.css (one line)
+   ───────────────────────────────────────────────────────────────────────── */
+
+@import './themes/_base.css';
+@import './themes/active.css';
