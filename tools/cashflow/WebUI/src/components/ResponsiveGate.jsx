@@ -6,7 +6,7 @@ import { MOBILE_BREAKPOINT_PX } from '../config/breakpoints';
 
 const MOBILE_SCREENS = ['/home', '/charts'];
 const DESKTOP_SCREEN = '/dashboard';
-const APP_BASE = import.meta.env.PROD ? '/utility-tools/cashflow' : '';
+const APP_BASE = import.meta.env.PROD ? '/utility-tools-web/cashflow' : '';
 const KNOWN_PATHS = new Set([
     '/dashboard', '/home', '/charts', '/contents', '/profile',
     '/privacy', '/terms', '/accessibility', '/cookies', '/data-security',

@@ -8,11 +8,11 @@ const LANDING_ORIGIN = import.meta.env.DEV
 
 const LANDING_PRICING = import.meta.env.DEV
     ? 'http://localhost:5174/pricing'
-    : `${LANDING_ORIGIN}/utility-tools/pricing`;
+    : `${LANDING_ORIGIN}/utility-tools-web/pricing`;
 
 const LANDING_AUTH = import.meta.env.DEV
     ? 'http://localhost:5174/login'
-    : `${LANDING_ORIGIN}/utility-tools/login`;
+    : `${LANDING_ORIGIN}/utility-tools-web/login`;
 
 /**
  * Wraps any tool screen that requires an active plan or trial.

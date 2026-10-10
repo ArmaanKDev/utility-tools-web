@@ -24,7 +24,7 @@ const ContentsScreen = lazy(() => import('./screens/ContentsScreen'));
 
 function AppContent() {
   return (
-    <BrowserRouter basename={import.meta.env.PROD ? '/utility-tools/cashflow' : '/'}>
+    <BrowserRouter basename={import.meta.env.PROD ? '/utility-tools-web/cashflow' : '/'}>
       <Routes>
         <Route path="/privacy" element={<PrivacyScreen />} />
         <Route path="/terms" element={<TermsScreen />} />

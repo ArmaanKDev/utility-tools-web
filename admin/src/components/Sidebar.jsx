@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 const LANDING_URL = import.meta.env.PROD
-    ? 'https://ideas-of-stuff-to-learn.github.io/utility-tools/'
+    ? 'https://ideas-of-stuff-to-learn.github.io/utility-tools-web/'
     : 'http://localhost:5174/';
 
 const AUDIT_MIN = parseInt(import.meta.env.VITE_ADMIN_AUDIT_MIN_LEVEL ?? '60', 10);

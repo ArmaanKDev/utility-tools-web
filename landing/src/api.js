@@ -177,7 +177,7 @@ export function safeRedirectTarget(raw) {
         if (target.protocol !== 'https:' && target.protocol !== 'http:') return null;
         if (import.meta.env.PROD) {
             if (target.origin !== window.location.origin) return null;
-            if (!target.pathname.startsWith('/utility-tools/')) return null;
+            if (!target.pathname.startsWith('/utility-tools-web/')) return null;
         } else if (target.hostname !== 'localhost' && target.origin !== window.location.origin) {
             return null;
         }

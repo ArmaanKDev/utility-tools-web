@@ -1,0 +1,4 @@
+{
+  "_comment": "Single source of truth for the GitHub Pages base path. Read by vite.config.js files (JSON import) and shared/site-urls.js (runtime). Change 'base' here to move all sites to a new repo path.",
+  "base": "/utility-tools-web"
+}

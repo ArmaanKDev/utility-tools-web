@@ -133,7 +133,7 @@ export default function ProfileScreen() {
             setTimeout(async () => {
                 await logout();
                 endSession();
-                const loginUrl = import.meta.env.PROD ? '/utility-tools/login' : 'http://localhost:5174/login';
+                const loginUrl = import.meta.env.PROD ? '/utility-tools-web/login' : 'http://localhost:5174/login';
                 window.location.href = loginUrl;
             }, 4000);
         } catch (err) {

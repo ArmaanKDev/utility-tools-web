@@ -75,7 +75,7 @@ const TIERS = [
     },
 ];
 
-const LANDING_HOME = import.meta.env.DEV ? 'http://localhost:5174' : '/utility-tools/';
+const LANDING_HOME = import.meta.env.DEV ? 'http://localhost:5174' : '/utility-tools-web/';
 
 export default function PricingScreen() {
     const navigate    = useNavigate();

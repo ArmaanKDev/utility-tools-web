@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../appState';
 
 const LOGIN_URL = import.meta.env.PROD
-    ? '/utility-tools/login?redirect=/utility-tools/cashflow/'
+    ? '/utility-tools-web/login?redirect=/utility-tools-web/cashflow/'
     : 'http://localhost:5174/login';
 
 // Landing's /login auto-forwards straight back here when its cookies look

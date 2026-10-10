@@ -1,6 +1,6 @@
 import { flushAll } from '../../idb/persistence';
 
-export const TOOLS_URL = import.meta.env.PROD ? '/utility-tools/' : 'http://localhost:5174/';
+export const TOOLS_URL = import.meta.env.PROD ? '/utility-tools-web/' : 'http://localhost:5174/';
 
 // Hard navigation tears down the app, so pending local writes (IDB snapshot,
 // debounced preference sync) are flushed first — capped so the button never

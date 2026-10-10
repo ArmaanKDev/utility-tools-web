@@ -36,7 +36,7 @@ export default function ProfilePopup({ onClose }) {
     const pendingEmail = userRole?.pending_email;
     const isAdmin = userRole?.role === 'owner' || (userRole?.permissions || []).includes('admin.panel.view');
     const adminUrl = import.meta.env.PROD
-        ? 'https://ideas-of-stuff-to-learn.github.io/utility-tools/admin/'
+        ? 'https://ideas-of-stuff-to-learn.github.io/utility-tools-web/admin/'
         : `http://localhost:${import.meta.env.VITE_ADMIN_PORT || '5175'}/`;
 
     const billingData = userRole?.billing;

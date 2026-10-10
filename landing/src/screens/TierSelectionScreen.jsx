@@ -43,7 +43,7 @@ const TIERS = [
 
 const LANDING_HOME = import.meta.env.DEV
     ? 'http://localhost:5174'
-    : '/utility-tools/';
+    : '/utility-tools-web/';
 
 export default function TierSelectionScreen() {
     const navigate  = useNavigate();

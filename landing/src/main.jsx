@@ -8,7 +8,7 @@ import App from './App.jsx'
 // here. Hand it back to cashflow's own index.html, which restores the path
 // from ?p= (allowlisted there). Never re-forward a URL that already has ?p=,
 // so a missing cashflow deploy can't turn into a redirect loop.
-const CASHFLOW_BASE = '/utility-tools/cashflow/'
+const CASHFLOW_BASE = '/utility-tools-web/cashflow/'
 const { pathname, search } = window.location
 const isCashflowDeepLink = import.meta.env.PROD
   && pathname.startsWith(CASHFLOW_BASE)
