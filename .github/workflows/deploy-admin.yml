@@ -1,0 +1,23 @@
+name: Deploy Admin Panel to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['admin/**', 'shared/**']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-admin-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_publish-site.yml
+    with:
+      site: admin
+      workdir: admin
+      dest: admin
+      spa_404: true

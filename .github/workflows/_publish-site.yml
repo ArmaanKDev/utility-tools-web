@@ -1,0 +1,92 @@
+name: Publish site (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      site:
+        description: Short site name (landing | cashflow | admin)
+        type: string
+        required: true
+      workdir:
+        description: Folder containing the Vite app
+        type: string
+        required: true
+      dest:
+        description: Folder on gh-pages ("." for the site root)
+        type: string
+        required: true
+      spa_404:
+        description: Copy index.html to 404.html for SPA routing
+        type: boolean
+        default: false
+      local_dev:
+        description: Value for VITE_LOCAL_DEV (cashflow only)
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: publish-${{ inputs.site }}
+      cancel-in-progress: false
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        working-directory: ${{ inputs.workdir }}
+        run: npm install
+
+      - name: Build
+        working-directory: ${{ inputs.workdir }}
+        env:
+          VITE_LOCAL_DEV: ${{ inputs.local_dev }}
+        run: npm run build
+
+      - name: Copy index.html to 404.html for SPA routing
+        if: inputs.spa_404
+        run: cp "${{ inputs.workdir }}/dist/index.html" "${{ inputs.workdir }}/dist/404.html"
+
+      - name: Publish to gh-pages
+        env:
+          SITE: ${{ inputs.site }}
+          DEST: ${{ inputs.dest }}
+          DIST: ${{ github.workspace }}/${{ inputs.workdir }}/dist
+          REMOTE_URL: https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git
+        run: |
+          set -euo pipefail
+          git clone --quiet --branch gh-pages --single-branch "$REMOTE_URL" pages 2>/dev/null || \
+            (git clone --quiet "$REMOTE_URL" pages && cd pages && git checkout --orphan gh-pages && git rm -rf . --quiet)
+          cd pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5 6 7 8; do
+            git fetch --quiet origin gh-pages 2>/dev/null || true
+            git reset --quiet --hard origin/gh-pages 2>/dev/null || true
+            mkdir -p "$DEST"
+            cp -r "$DIST"/. "$DEST"/
+            touch .nojekyll
+            git add -A
+            if git diff --cached --quiet; then
+              echo "Nothing new to publish for $SITE"
+              exit 0
+            fi
+            git commit --quiet -m "Deploy $SITE from ${GITHUB_SHA::7}"
+            if git push --quiet origin HEAD:gh-pages; then
+              echo "Published $SITE on attempt $attempt"
+              exit 0
+            fi
+            echo "Push raced (attempt $attempt), retrying..."
+            sleep $((attempt * 2))
+          done
+          echo "Could not publish $SITE after 8 attempts"
+          exit 1

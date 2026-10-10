@@ -1,0 +1,23 @@
+name: Deploy Cashflow WebUI to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['tools/cashflow/WebUI/**', 'tools/cashflow/frontendLocalConfig.jsx', 'shared/**']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-cashflow-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_publish-site.yml
+    with:
+      site: cashflow
+      workdir: tools/cashflow/WebUI
+      dest: cashflow
+      local_dev: ${{ vars.VITE_LOCAL_DEV }}

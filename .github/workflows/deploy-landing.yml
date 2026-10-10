@@ -1,0 +1,23 @@
+name: Deploy Landing Page to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['landing/**', 'shared/**']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-landing-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_publish-site.yml
+    with:
+      site: landing
+      workdir: landing
+      dest: .
+      spa_404: true
