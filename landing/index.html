@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Utility Tools</title>
-    <!-- Prefetch Cashflow so clicking it loads from cache -->
-    <link rel="prefetch" href="/utility-tools/cashflow/" as="document" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://utility-tools-b6dj.onrender.com; img-src 'self' data:; font-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self';" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="prefetch" href="/utility-tools-web/cashflow/" as="document" />
   </head>
   <body>
     <div id="root"></div>
     <script>
-      // Fire-and-forget warm-up ping so Render wakes before the user clicks a tool.
       var h = location.hostname;
       var isLocal = h === 'localhost' || h === '127.0.0.1' || h.startsWith('192.168.') || h.startsWith('10.') || h.startsWith('172.');
       if (!isLocal) {
