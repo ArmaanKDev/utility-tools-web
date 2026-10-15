@@ -1,0 +1,6 @@
+# SPA routing — Cloudflare Pages serves index.html for all unmatched paths
+# Each app handles its own deep-link routing client-side.
+# Static assets (JS/CSS/images) are matched first by Cloudflare before these rules apply.
+/cashflow/*  /cashflow/index.html  200
+/admin/*     /admin/index.html     200
+/*           /index.html           200
