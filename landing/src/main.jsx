@@ -4,7 +4,7 @@ import './landing.css'
 import App from './App.jsx'
 
 // GitHub Pages serves this app as the site-wide 404 page, so a reload or
-// bookmark of a cashflow deep link (/utility-tools/cashflow/dashboard) lands
+// bookmark of a cashflow deep link (/utility-tools-web/cashflow/dashboard) lands
 // here. Hand it back to cashflow's own index.html, which restores the path
 // from ?p= (allowlisted there). Never re-forward a URL that already has ?p=,
 // so a missing cashflow deploy can't turn into a redirect loop.

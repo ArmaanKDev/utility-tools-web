@@ -175,7 +175,7 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.PROD ? '/utility-tools' : '/'}>
+    <BrowserRouter basename={import.meta.env.PROD ? '/utility-tools-web' : '/'}>
       <AuthProvider>
         <AppRoutes />
       </AuthProvider>

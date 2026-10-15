@@ -84,7 +84,7 @@ describe('TierSelectionScreen', () => {
         renderTierSelect();
         fireEvent.click(screen.getAllByText(/Start 30-day free trial/)[0]);
         await waitFor(() =>
-            expect(window.location.href).toMatch(/localhost:5174|\/utility-tools\//)
+            expect(window.location.href).toMatch(/localhost:5174|\/utility-tools-web\//)
         );
     });
 
