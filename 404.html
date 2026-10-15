@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <script>(function () {
-  var BUILD = "e24d9e7611df";
+  var BUILD = "d3faa8b9051c";
   var VERSION_URL = "/utility-tools-web/version.json";
   var RELOAD_KEY = 'vc:reloaded-for';
   var ASSET_KEY = 'vc:asset-reload-at';
@@ -120,8 +120,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Utility Tools</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://utility-tools-b6dj.onrender.com; img-src 'self' data:; font-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self';" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <!-- Prefetch Cashflow so clicking it loads from cache -->
-    <link rel="prefetch" href="/utility-tools/cashflow/" as="document" />
+    <link rel="prefetch" href="/utility-tools-web/cashflow/" as="document" />
     <script type="module" crossorigin src="/utility-tools-web/assets/index-DjDI5c2f.js"></script>
     <link rel="stylesheet" crossorigin href="/utility-tools-web/assets/index-Di1-LQvW.css">
   </head>
